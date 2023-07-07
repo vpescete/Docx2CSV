@@ -8,6 +8,10 @@ cartella_origine = 'Files2Scrape'
 cartella_destinazione = 'FilesAlreadyScraped'
 cartella_dati = 'Data'
 
+# Verifica se la cartella dei dati esiste, altrimenti creala
+if not os.path.exists(cartella_dati):
+    os.makedirs(cartella_dati)
+
 # Verifica se la cartella di destinazione esiste, altrimenti creala
 if not os.path.exists(cartella_destinazione):
     os.makedirs(cartella_destinazione)
