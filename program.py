@@ -12,11 +12,15 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 # Funzione per copiare i file .docx dalla cartella selezionata nella cartella Files2Scrape
 def copia_files(cartella_sorgente):
     cartella_destinazione = 'Files2Scrape'
+    if not os.path.isdir(cartella_destinazione):
+        os.makedirs(cartella_destinazione)
     for filename in os.listdir(cartella_sorgente):
         percorso_file = os.path.join(cartella_sorgente, filename)
         if os.path.isfile(percorso_file) and filename.lower().endswith('.docx') and not filename.startswith('~'):
-            shutil.copy(percorso_file, cartella_destinazione)
-            print(f"Il file {filename} è stato copiato nella cartella Files2Scrape.")
+            destinazione_file = os.path.join(cartella_destinazione, filename)
+            if not os.path.exists(destinazione_file):
+                shutil.copy2(percorso_file, destinazione_file)
+                print(f"Il file {filename} è stato copiato nella cartella Files2Scrape.")
     print("Copia dei file .docx completata.")
 
 # Funzione per selezionare una cartella
@@ -34,6 +38,8 @@ def seleziona_file(event):
     if dialog.ShowModal() == wx.ID_OK:
         percorsi_file = dialog.GetPaths()
         cartella_destinazione = 'Files2Scrape'
+        if not os.path.exists(cartella_destinazione):
+            os.makedirs(cartella_destinazione)
         for percorso in percorsi_file:
             shutil.copy(percorso, cartella_destinazione)
         print("I file .docx sono stati copiati nella cartella Files2Scrape.")
