@@ -68,39 +68,48 @@ def esci(event):
 app = wx.App()
 
 # Creazione della finestra principale
-frame = wx.Frame(None, title="Programma con wxPython", size=(800, 400))
+frame = wx.Frame(None, title="From .docx to .csv", size=(380, 200))
 
 # Pannello principale
 panel = wx.Panel(frame)
+# Creazione di un sizer a griglia per le colonne
+sizer = wx.GridBagSizer(hgap=6, vgap=6)
 
 # Pulsante per selezionare una cartella
 button_cartella = wx.Button(panel, label="Seleziona Cartella")
 button_cartella.Bind(wx.EVT_BUTTON, seleziona_cartella)
+sizer.Add(button_cartella, pos=(2, 1), flag=wx.ALIGN_CENTER)
 
-# Pulsante per selezionare uno o più file
+# Pulsante per selezionare un singolo file
 button_file = wx.Button(panel, label="Seleziona File")
 button_file.Bind(wx.EVT_BUTTON, seleziona_file)
+sizer.Add(button_file, pos=(4, 1), flag=wx.ALIGN_CENTER)
 
-# Pulsante per l'esecuzione dello script
+# Righe separatori
+line1 = wx.StaticLine(panel, style=wx.LI_HORIZONTAL)
+sizer.Add(line1, pos=(0, 2), span=(7, 0), flag=wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL)
+
+# Pulsante per eseguire lo script
 button_esegui = wx.Button(panel, label="Esegui Script")
 button_esegui.Bind(wx.EVT_BUTTON, esegui_script)
+sizer.Add(button_esegui, pos=(3, 3), flag=wx.ALIGN_CENTER)
 
-# Pulsante per il download del file CSV
+# Righe separatori
+line2 = wx.StaticLine(panel, style=wx.LI_HORIZONTAL)
+sizer.Add(line2, pos=(0, 4), span=(7, 1), flag=wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL)
+
+# Pulsante per scaricare il file CSV
 button_scarica = wx.Button(panel, label="Scarica CSV")
 button_scarica.Bind(wx.EVT_BUTTON, scarica_csv)
+sizer.Add(button_scarica, pos=(2, 5), flag=wx.ALIGN_CENTER)
 
 # Pulsante per uscire dall'applicazione
 button_esci = wx.Button(panel, label="Quit")
 button_esci.Bind(wx.EVT_BUTTON, esci)
+sizer.Add(button_esci, pos=(4, 5), flag=wx.ALIGN_CENTER)
 
-# Layout del pannello
-sizer = wx.BoxSizer(wx.VERTICAL)
-sizer.Add(button_cartella, 0, wx.ALL, 10)
-sizer.Add(button_file, 0, wx.ALL, 10)
-sizer.Add(button_esegui, 0, wx.ALL, 10)
-sizer.Add(button_scarica, 0, wx.ALL, 10)
-sizer.Add(button_esci, 0, wx.ALL, 10)
-panel.SetSizer(sizer)
+# Settaggio del sizer nel pannello
+panel.SetSizerAndFit(sizer)
 
 # Visualizza la finestra
 frame.Show()
