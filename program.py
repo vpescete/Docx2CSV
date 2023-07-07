@@ -68,7 +68,7 @@ def esci(event):
 app = wx.App()
 
 # Creazione della finestra principale
-frame = wx.Frame(None, title="Programma con wxPython", size=(400, 200))
+frame = wx.Frame(None, title="Programma con wxPython", size=(800, 400))
 
 # Pannello principale
 panel = wx.Panel(frame)
